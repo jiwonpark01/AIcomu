@@ -1,5 +1,7 @@
 # AI Community — 개발 보고서
 
+url: https://race-boston-coverage-nail.trycloudflare.com
+
 ---
 
 ## 1. 프로젝트 개요
