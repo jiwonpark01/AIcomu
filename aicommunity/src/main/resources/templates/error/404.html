@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — AI Community</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="stars"></div>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/posts}">AI<span>Community</span></a>
+</nav>
+<div class="error-page">
+    <div class="error-code">404</div>
+    <div class="error-message" th:text="${message}">존재하지 않는 페이지입니다</div>
+    <a th:href="@{/posts}" class="btn btn-secondary">목록으로</a>
+</div>
+</body>
+</html>

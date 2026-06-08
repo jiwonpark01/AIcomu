@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title} + ' — AI Community'">상세</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="stars"></div>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/posts}">AI<span>Community</span></a>
+    <div class="navbar-nav">
+        <span sec:authorize="isAuthenticated()" class="navbar-user" sec:authentication="name"></span>
+        <a sec:authorize="isAuthenticated()" th:href="@{/posts/new}" class="btn btn-primary btn-sm">글쓰기</a>
+        <form sec:authorize="isAuthenticated()" action="/logout" method="post" style="display:inline">
+            <button type="submit">로그아웃</button>
+        </form>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+    </div>
+</nav>
+
+<main class="page">
+    <div class="container container--read">
+        <a th:href="@{/posts}" class="back-link">← 목록으로</a>
+
+        <article class="card">
+            <header class="article-head">
+                <span class="badge"
+                      th:classappend="'badge-' + ${post.category}"
+                      th:text="${post.category}"></span>
+                <h1 class="article-title" th:text="${post.title}"></h1>
+                <div class="article-meta">
+                    <span class="avatar"
+                          th:text="${#strings.substring(post.authorNickname, 0, 1)}"></span>
+                    <span class="author" th:text="${post.authorNickname}"></span>
+                    <span class="dot"></span>
+                    <span th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm')}"></span>
+                </div>
+            </header>
+
+            <hr class="divider"/>
+            <div class="article-body" th:text="${post.content}"></div>
+
+            <div class="article-actions" sec:authorize="isAuthenticated()">
+                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-secondary btn-sm">수정</a>
+                <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+                </form>
+            </div>
+        </article>
+    </div>
+</main>
+</body>
+</html>
